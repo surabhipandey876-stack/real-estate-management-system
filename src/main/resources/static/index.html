@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f4ef">
+    <title>Hearth &amp; Home | Real Estate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <a class="brand" href="#" data-action="home" aria-label="Hearth and Home home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span>hearth<span class="brand-amp">&amp;</span>home</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="#homes" data-action="home">Find a home</a>
+        <a href="#dashboard" data-action="dashboard" class="signed-in-only hidden">My dashboard</a>
+    </nav>
+    <div class="header-actions">
+        <span id="user-label" class="user-label hidden"></span>
+        <button id="login-open" class="button button-quiet" type="button">Log in</button>
+        <button id="register-open" class="button button-dark" type="button">Get started</button>
+        <button id="logout" class="button button-quiet hidden" type="button">Log out</button>
+        <button id="mobile-menu" class="mobile-menu" type="button" aria-label="Open menu">☰</button>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="homes">
+        <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> A better way to find home</p>
+            <h1>Find a place<br>to <em>belong.</em></h1>
+            <p class="hero-lede">Thoughtful homes. Local expertise. Your next chapter starts here.</p>
+            <a class="button button-light" href="#property-results" data-action="browse">Explore properties <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a welcoming home">
+            <div class="sun"></div>
+            <div class="hero-arch"></div>
+            <div class="hero-house">
+                <div class="house-roof"></div>
+                <div class="house-body">
+                    <div class="house-window window-left"></div>
+                    <div class="house-door"></div>
+                    <div class="house-window window-right"></div>
+                </div>
+            </div>
+            <div class="hero-tree tree-one"><i></i><i></i><i></i></div>
+            <div class="hero-tree tree-two"><i></i><i></i><i></i></div>
+            <div class="hero-ground"></div>
+            <span class="art-caption">A home for every kind of next.</span>
+        </div>
+        <div class="hero-index"><span>01</span><i></i><span>03</span></div>
+    </section>
+
+    <section class="search-section" aria-label="Search properties">
+        <div class="search-intro">
+            <p class="eyebrow">Make yourself at home</p>
+            <h2>Let’s find your<br><em>somewhere.</em></h2>
+        </div>
+        <form id="search-form" class="search-form">
+            <label class="search-field search-location">
+                <span>Location</span>
+                <input name="city" type="search" placeholder="City or neighborhood">
+            </label>
+            <label class="search-field">
+                <span>Property type</span>
+                <select name="propertyType">
+                    <option value="">Any type</option>
+                    <option value="HOUSE">House</option>
+                    <option value="APARTMENT">Apartment</option>
+                    <option value="CONDO">Condo</option>
+                    <option value="TOWNHOUSE">Townhouse</option>
+                    <option value="LAND">Land</option>
+                </select>
+            </label>
+            <label class="search-field">
+                <span>Price from</span>
+                <input name="minPrice" type="number" min="0.01" step="1000" placeholder="No minimum">
+            </label>
+            <label class="search-field">
+                <span>Price to</span>
+                <input name="maxPrice" type="number" min="0.01" step="1000" placeholder="No maximum">
+            </label>
+            <label class="search-field">
+                <span>Bedrooms</span>
+                <select name="minBedrooms">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
+            </label>
+            <label class="search-field">
+                <span>Availability</span>
+                <select name="status">
+                    <option value="">Any status</option>
+                    <option value="AVAILABLE">Available</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="SOLD">Sold</option>
+                </select>
+            </label>
+            <button class="button button-dark search-submit" type="submit"><span aria-hidden="true">⌕</span> Search homes</button>
+        </form>
+    </section>
+
+    <section class="listings-section" id="property-results">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Considered spaces, just for you</p>
+                <h2>Homes worth <em>coming home to.</em></h2>
+            </div>
+            <div class="listing-controls">
+                <span id="results-count" class="muted"></span>
+                <button class="text-button" id="clear-search" type="button">Clear filters <span aria-hidden="true">×</span></button>
+            </div>
+        </div>
+        <div id="property-grid" class="property-grid" aria-live="polite">
+            <div class="loading-card">Finding places to love…</div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="dashboard-section hidden">
+        <span id="customer-dashboard" class="dashboard-route" aria-hidden="true"></span>
+        <span id="agent-dashboard" class="dashboard-route" aria-hidden="true"></span>
+        <span id="admin-dashboard" class="dashboard-route" aria-hidden="true"></span>
+        <div class="section-heading dashboard-heading">
+            <div>
+                <p id="dashboard-eyebrow" class="eyebrow">Your space</p>
+                <h2 id="dashboard-title">A little <em>overview.</em></h2>
+            </div>
+            <div id="dashboard-role" class="role-pill"></div>
+        </div>
+        <div id="dashboard-content"></div>
+    </section>
+
+    <section class="closing-banner">
+        <div>
+            <p class="eyebrow">Good things are closer than you think</p>
+            <h2>Ready to find your<br><em>next place?</em></h2>
+        </div>
+        <a class="button button-light" href="#homes" data-action="browse">Browse homes <span aria-hidden="true">↗</span></a>
+        <span class="banner-sun" aria-hidden="true"></span>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <a class="brand footer-brand" href="#" data-action="home"><span class="brand-mark">H</span><span>hearth<span class="brand-amp">&amp;</span>home</span></a>
+    <p>A little closer to home.</p>
+    <span id="backend-status" class="backend-status"><i></i> Connecting to backend…</span>
+    <span>© <span id="year"></span> Hearth &amp; Home</span>
+</footer>
+
+<dialog id="auth-dialog" class="modal">
+    <button class="modal-close" type="button" data-close-dialog aria-label="Close">×</button>
+    <p class="eyebrow">Welcome home</p>
+    <h2 id="auth-title">Log in to your <em>account.</em></h2>
+    <div class="auth-switch">
+        <button type="button" data-auth-mode="login" class="active">Log in</button>
+        <button type="button" data-auth-mode="register">Create account</button>
+    </div>
+    <form id="auth-form" class="stack-form">
+        <div id="register-fields" class="form-pair hidden">
+            <label>First name<input name="firstName" autocomplete="given-name" maxlength="100"></label>
+            <label>Last name<input name="lastName" autocomplete="family-name" maxlength="100"></label>
+        </div>
+        <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="255"></label>
+        <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72"></label>
+        <label id="phone-field" class="hidden">Phone number <span class="muted">(optional)</span><input name="phoneNumber" type="tel" maxlength="30"></label>
+        <p id="auth-notice" class="form-notice" aria-live="polite"></p>
+        <button class="button button-dark full-button" type="submit">Log in <span aria-hidden="true">↗</span></button>
+    </form>
+</dialog>
+
+<dialog id="property-dialog" class="modal property-modal">
+    <button class="modal-close" type="button" data-close-dialog aria-label="Close">×</button>
+    <div id="property-detail-content"></div>
+</dialog>
+
+<dialog id="property-form-dialog" class="modal property-form-modal">
+    <button class="modal-close" type="button" data-close-dialog aria-label="Close">×</button>
+    <p class="eyebrow">Your listing</p>
+    <h2 id="property-form-title">Add a <em>property.</em></h2>
+    <form id="property-form" class="stack-form">
+        <input name="id" type="hidden">
+        <label>Property title<input name="title" required maxlength="255"></label>
+        <label>Description<textarea name="description" rows="3"></textarea></label>
+        <div class="form-pair">
+            <label>Property type
+                <select name="propertyType" required>
+                    <option value="HOUSE">House</option><option value="APARTMENT">Apartment</option>
+                    <option value="CONDO">Condo</option><option value="TOWNHOUSE">Townhouse</option><option value="LAND">Land</option>
+                </select>
+            </label>
+            <label>Status
+                <select name="status" required>
+                    <option value="AVAILABLE">Available</option><option value="PENDING">Pending</option><option value="SOLD">Sold</option>
+                </select>
+            </label>
+        </div>
+        <div class="form-pair three-fields">
+            <label>Price<input name="price" type="number" min="0.01" step="0.01" required></label>
+            <label>Bedrooms<input name="bedrooms" type="number" min="0"></label>
+            <label>Bathrooms<input name="bathrooms" type="number" min="0"></label>
+        </div>
+        <div class="form-pair">
+            <label>Area (sq ft)<input name="areaSqft" type="number" min="1"></label>
+            <label>City<input name="city" required maxlength="100"></label>
+        </div>
+        <label>Street address<input name="address" required maxlength="255"></label>
+        <label id="agent-id-field" class="hidden">Agent user ID <span class="muted">(required for admin-created listings)</span><input name="agentId" type="number" min="1"></label>
+        <label>Property photos <span class="muted">(JPEG or PNG, up to 5 MB each; 10 per listing)</span><input name="images" type="file" accept="image/jpeg,image/png" multiple></label>
+        <p id="property-form-notice" class="form-notice" aria-live="polite"></p>
+        <button class="button button-dark full-button" type="submit">Save property <span aria-hidden="true">↗</span></button>
+    </form>
+</dialog>
+
+<dialog id="agent-form-dialog" class="modal">
+    <button class="modal-close" type="button" data-close-dialog aria-label="Close">×</button>
+    <p class="eyebrow">Admin user management</p>
+    <h2>Add an <em>agent.</em></h2>
+    <form class="stack-form" data-form="add-agent">
+        <div class="form-pair">
+            <label>First name<input name="firstName" required maxlength="100"></label>
+            <label>Last name<input name="lastName" required maxlength="100"></label>
+        </div>
+        <label>Email address<input name="email" type="email" required maxlength="255"></label>
+        <label>Password<input name="password" type="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+        <label>Phone number <span class="muted">(optional)</span><input name="phoneNumber" type="tel" maxlength="30"></label>
+        <p class="form-notice" aria-live="polite"></p>
+        <button class="button button-dark full-button" type="submit">Create agent <span aria-hidden="true">↗</span></button>
+    </form>
+</dialog>
+
+<dialog id="edit-agent-dialog" class="modal">
+    <button class="modal-close" type="button" data-close-dialog aria-label="Close">×</button>
+    <p class="eyebrow">Admin user management</p>
+    <h2>Edit <em>agent details.</em></h2>
+    <form id="edit-agent-form" class="stack-form" data-form="edit-agent">
+        <div class="form-pair">
+            <label>First name<input name="firstName" required maxlength="100"></label>
+            <label>Last name<input name="lastName" required maxlength="100"></label>
+        </div>
+        <label>Email address<input name="email" type="email" required maxlength="255"></label>
+        <label>Phone number <span class="muted">(optional)</span><input name="phoneNumber" type="tel" maxlength="30"></label>
+        <p class="form-notice" aria-live="polite"></p>
+        <button class="button button-dark full-button" type="submit">Save agent <span aria-hidden="true">↗</span></button>
+    </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

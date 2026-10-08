@@ -1,0 +1,7 @@
+target/
+.idea/
+.vscode/*.log
+*.class
+.DS_Store
+.env
+src/main/resources/application-dev.properties

@@ -1,0 +1,2 @@
+ALTER TABLE properties
+    ADD COLUMN approval_status VARCHAR(30) NOT NULL DEFAULT 'APPROVED';
